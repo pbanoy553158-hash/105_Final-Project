@@ -1,29 +1,17 @@
-package src;
+package src.baseline;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Task class for the baseline scheduling system.
- * Models a single work item with basic properties.
- */
+/** Task model - stores id, name, priority, deadline */
 public class Task {
-    /** Unique task identifier */
     public String id;
-    /** Display name of the task */
     public String name;
-    /** Priority level: 1=Critical, 5=Minimal */
-    public int priority;
-    /** Deadline in YYYYMMDD format */
-    public int deadline;
-    /** List of task dependencies */
+    public int priority;      // 1=Critical, 5=Minimal
+    public int deadline;      // YYYYMMDD format
     public List<String> dependencies;
-    /** Completion state */
     public boolean completed;
 
-    /**
-     * Create a new task instance.
-     */
     public Task(String id, String name, int priority, int deadline) {
         this.id = id;
         this.name = name;
@@ -33,17 +21,7 @@ public class Task {
         this.completed = false;
     }
 
-    /**
-     * Return a short text summary of the task.
-     */
-    @Override
-    public String toString() {
-        return String.format("[%s] %s | Priority: %d | Due: %d", id, name, priority, deadline);
-    }
-
-    /**
-     * Convert integer deadline to YYYY-MM-DD format.
-     */
+    /** Converts YYYYMMDD to YYYY-MM-DD for display */
     public String getFormattedDeadline() {
         String d = String.valueOf(deadline);
         if (d.length() == 8) {
@@ -52,9 +30,7 @@ public class Task {
         return d;
     }
 
-    /**
-     * Return user-friendly label for priority value.
-     */
+    /** Converts numeric priority to readable label */
     public String getPriorityLabel() {
         switch (priority) {
             case 1: return "Critical";

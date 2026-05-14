@@ -1,11 +1,8 @@
-package src;
+package src.baseline;
 
 import java.util.*;
 
-/**
- * DataLoader supplies generated task data for the baseline scheduler.
- * Creates reproducible sample tasks with deadlines.
- */
+/** Generates sample task data with fixed seed (42) for reproducibility */
 public class DataLoader {
     
     private static final String[] TASK_NAMES = {
@@ -17,14 +14,10 @@ public class DataLoader {
 
     private static final String[] PREFIXES = {"TASK", "PROJ", "DEV", "TEST"};
 
-    /**
-     * Generate N sample Task objects.
-     * @param count number of tasks to generate
-     * @return list of generated Task objects
-     */
+    /** Creates N tasks with random priorities/deadlines - O(n) */
     public static List<Task> generateTasks(int count) {
-        List<Task> tasks = new ArrayList<>();
-        Random rand = new Random(42); // Fixed seed for reproducibility
+        List<Task> tasks = new ArrayList<>(count);
+        Random rand = new Random(42);  // Fixed seed = reproducible results
         
         for (int i = 0; i < count; i++) {
             String prefix = PREFIXES[i % PREFIXES.length];
@@ -37,9 +30,7 @@ public class DataLoader {
         return tasks;
     }
 
-    /**
-     * Create a sample deadline value in YYYYMMDD format.
-     */
+    /** Creates random deadline in 2025-2026 range */
     private static int generateDeadline(Random rand) {
         int year = 2025 + rand.nextInt(2);
         int month = rand.nextInt(12) + 1;
@@ -47,11 +38,9 @@ public class DataLoader {
         return year * 10000 + month * 100 + day;
     }
 
-    /**
-     * Load tasks into the application data list.
-     */
-    public static void loadIntoSystem(List<Task> tasks, List<Task> allTasks) {
-        allTasks.clear();
-        allTasks.addAll(tasks);
+    /** Loads tasks into ArrayList - clear() + addAll() = O(n) */
+    public static void loadIntoSystem(List<Task> newTasks, List<Task> existingTasks) {
+        existingTasks.clear();
+        existingTasks.addAll(newTasks);
     }
 }
